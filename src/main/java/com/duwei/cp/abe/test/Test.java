@@ -70,14 +70,14 @@ public class Test {
         System.out.println(text.getC_wave().equals(cipherText.getC_wave()));
         System.out.println(text.getC_y_map().equals(cipherText.getC_y_map()));
         System.out.println(text.getC_y_pie_map().equals(cipherText.getC_y_pie_map()));
-        System.out.println(text.getAccessTree().equals(cipherText.getAccessTree()));
+//        System.out.println(text.getAccessTree().equals(cipherText.getAccessTree()));
 
         // 7.用户 A 解密
-        String decryptStrA = cpAneEngine.decryptToStr(systemKey.getPublicKey(), userAPrivateKey, cipherText);
+        String decryptStrA = cpAneEngine.decryptToStr(systemKey.getPublicKey(), userAPrivateKey, text);
         System.out.println("decryptStrA: " + decryptStrA);
 
         // 8.用户 B 解密
-        String decryptStrB = cpAneEngine.decryptToStr(systemKey.getPublicKey(), userBPrivateKey, cipherText);
+        String decryptStrB = cpAneEngine.decryptToStr(systemKey.getPublicKey(), userBPrivateKey, text);
         System.out.println("decryptStrB: " + decryptStrB);
     }
 

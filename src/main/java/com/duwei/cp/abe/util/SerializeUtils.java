@@ -5,10 +5,7 @@ import com.duwei.cp.abe.parameter.PublicKey;
 import com.duwei.cp.abe.parameter.SystemKey;
 import com.duwei.cp.abe.structure.*;
 import com.duwei.cp.abe.text.CipherText;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import it.unisa.dia.gas.jpbc.Element;
 
@@ -165,9 +162,14 @@ public class SerializeUtils {
         if (nodeType == AccessTreeNodeType.INNER_NODE) {
             int threshold = serializedNode.get("threshold").getAsInt();
             node = new InnerAccessTreeNode(threshold, serializedNode.get("index").getAsInt());
+//            System.out.println("inner node");
         } else if (nodeType == AccessTreeNodeType.LEAF_NODE) {
-            String attributeName = serializedNode.get("attribute").getAsString();
+            String attributeJsonString = serializedNode.get("attribute").getAsString();
+            JsonObject attributeJsonObject = JsonParser.parseString(attributeJsonString).getAsJsonObject();
+            String attributeName = attributeJsonObject.get("attributeName").getAsString();
+
             node = new LeafAccessTreeNode(attributeName, publicKey, serializedNode.get("index").getAsInt());
+//            System.out.println("leaf node");
         } else {
             throw new IllegalArgumentException("Unknown node type");
         }

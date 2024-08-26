@@ -90,21 +90,22 @@ public class CpAneEngine {
             for (AccessTreeNode child : node.getChildren()) {
                 int index = child.getIndex();
                 Element childSecret = polynomial.getValue(z_r.newElement(index).getImmutable());
-                System.out.println(childSecret);
+                System.out.println("childSecret -> " + childSecret);
 
-                byte[] childSecretBytes = childSecret.toBytes();
-
-                Element childSecretFromBytes = PairingParameter
-                        .getInstance()
-                        .getZr()
-                        .newElementFromBytes(childSecretBytes)
-                        .getImmutable();
-
+//                byte[] childSecretBytes = childSecret.toBytes();
+//
+//                Element childSecretFromBytes = PairingParameter
+//                        .getInstance()
+//                        .getZr()
+//                        .newElementFromBytes(childSecretBytes)
+//                        .getImmutable();
+//
 //                System.out.println("childSecret -> " + childSecret);
 //                System.out.println("childSecretFromBytes -> " + childSecretFromBytes);
 
                 child.setParent(node);
-                child.setSecretNumber(childSecretFromBytes);
+                child.setSecretNumber(childSecret);
+
                 //递归去设置子节点
                 compute(child, publicKey, cipherText);
             }
@@ -113,17 +114,21 @@ public class CpAneEngine {
         //节点是叶节点
         if (node.getAccessTreeNodeType() == AccessTreeNodeType.LEAF_NODE) {
 
-            System.out.println("qwq");
-
             LeafAccessTreeNode leafNode = (LeafAccessTreeNode) node;
             //属性
             Attribute attribute = leafNode.getAttribute();
-            System.out.println(attribute.getAttributeValue());
             //属性值
             Element attributeValue = attribute.getAttributeValue();
 
+            System.out.println("qwq");
+            System.out.println("-->" + attributeValue);
+
 //            byte[] attributeValueBytes = attributeValue.toBytes();
-//            Element attributeValueFromBytes = publicKey.getPairingParameter().getG0().newElementFromBytes(attributeValueBytes).getImmutable();
+//            Element attributeValueFromBytes = publicKey
+//                    .getPairingParameter()
+//                    .getG0()
+//                    .newElementFromBytes(attributeValueBytes)
+//                    .getImmutable();
 //            System.out.println(attributeValueFromBytes.equals(attributeValue));
 //            System.out.println(attributeValueFromBytes);
 //            System.out.println(attributeValue);

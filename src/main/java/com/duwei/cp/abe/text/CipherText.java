@@ -17,8 +17,6 @@ import java.util.Map;
 
 @Data
 public class CipherText {
-    SystemKey systemKey = SystemKey.build();
-
     //g1
     private Element c_wave;
 
